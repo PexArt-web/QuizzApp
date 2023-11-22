@@ -1,0 +1,398 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz App</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body>
+
+    <div class="container " id="welcome">
+        <div class="card p-5 shadow-lg rounded mt-5 bg-dark m-auto" style="color: rgb(245, 222, 179); text-align: justify;">
+            <h1>
+                Welcome Stranger, <br>
+                Please input your full name below
+            </h1>
+            <input type="text" id="name" style="font-size: 20px;">
+            <br>
+            <button class="btn btn-info" onclick="start()">Submit</button>
+            <audio src="./audio/welcomestranger-34421.mp3" id="aud"></audio>
+        </div>
+
+       
+    </div>
+
+    <div class="container" id="instructions" style="display: none;">
+
+        <div class="card p-5 shadow-lg rounded mt-5">
+
+            <p style="font-weight: 700; text-align: justify; font-size: 19px; line-height: 170%;" class="m-auto">
+                Quiz Instructions <br>
+                The quizzes consists of questions carefully designed to help you self-assess your comprehension. No data will be collected on the website regarding your responses or how many times you take the quiz. <br>
+                
+                Each question in the quiz is of multiple-choice format. Read each question carefully, and click on the input button of your choice. Each correct or incorrect response will result in appropriate feedback immediately at the bottom of the screen. <br>
+                
+                After responding to a question, click on the "Next" button at the bottom to go to the next question. After responding <br>to  all questions, click on "Submit" below to display your result. <br>
+                
+                If you select an incorrect response for a question, you can try again until you get the correct response.
+                
+                The total score for the quiz is based on your responses to all questions. If you respond incorrectly to a question or retake a <br>question again and get the correct response, your quiz score will reflect it appropriately. However, your quiz will not be <br>graded, if you skip a question or exit before responding to all the questions. <br>
+
+                Note: Your <mark>TIME STARTS</mark> immediately after the first question ,you have a maximum of 10 minutes on all the questions
+            </p>
+            <br>
+            <br>
+
+            <button class="btn btn-dark" onclick="sstart()">Start</button>
+
+        </div>
+
+    </div>
+
+   
+
+    <div class="container" id="screen" style="display: none;">
+        <div class="card p-5 shadow-lg rounded mt-5">
+            <div id="screens"></div>
+
+            <div class="row container p-5 mt-5 mx-auto ml-5">
+                <div class="col"><button class="btn btn-info controls" onclick="back()">Previous</button></div>
+                <div class="col"> <button class="btn btn-success controls" onclick="forward()">Next</button></div>
+            </div>
+            <button class="btn btn-dark" onclick="mysubmit()">Submit</button>
+        </div>
+
+    </div>
+    <br>
+    <br>
+
+    <div class="container" id="Submitdisplay" style="display:none;">
+        <div class="card p-5 shadow-lg rounded mt-5">
+            <h1 id="Submitdisplay">
+
+            </h1>
+        </div>
+    </div>
+        <!-- <h1 id="final"></h1> -->
+    <table class="table" id="final">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+          </tr>
+        </thead>
+        <tbody id="final">
+        </tbody>
+      </table>
+      
+
+</body>
+    <script>
+
+        document.getElementById('final').style.display = 'none'
+
+        
+
+        const start = () =>{
+
+            document.getElementById('instructions').style.display = 'block'
+            document.getElementById('welcome').style.display ='none'
+            document.getElementById('aud').play()
+           
+            start()
+        }
+        // setTimeout(document.getElementById('aud').pause(),1000)
+
+        const sstart = () =>{
+
+            document.getElementById('instructions').style.display = 'none'
+
+            document.getElementById('screen').style.display = 'block'
+            
+          
+            document.getElementById('aud').pause()
+   
+            
+            sstart()
+        }
+
+        
+
+
+        let questions = [
+            
+        {
+
+            question:`What is the largest mammal in the world?`,
+            options: [ 'Blue whale','White Shark', 'Deep Sea Croc','Sea Dragon'],
+            answers: 'Blue whale',
+            chosen:''
+
+        },
+
+        {
+
+            question:`Who painted the Mona Lisa?`,
+            options: ['Anthony Aurera','Lord Lugard','Leonardo da Vinci','Tomi Akinkumi'],
+            answers: 'Leonardo da Vinci',
+            chosen:''
+
+        },
+
+        {
+
+            question:`What is the name of the largest ocean on Earth?`,
+            options: ['Deep Blue Sea', ' Pacific Ocean','River Niger','Mississsipi'],
+            answers:  'Pacific Ocean',
+            chosen:''
+
+            },
+            {
+                question: `In the story of Snow White, how many dwarfs are there?`,
+                options:['Twelve','Nine','Five','Seven'],
+                answers: ' Seven',
+                chosen: ''
+            },
+            {
+                question: `Who is the king of the gods in Greek mythology?`,
+                options:['Thor','Hercules','Ares','Zeus'],
+                answers: 'Zeus',
+                chosen: ''
+            },
+            {
+                question: `What do bees collect to make honey?` ,
+                options:['Nectar','Apex','Sweetner','Seeedlings'],
+                answers: 'Nectar',
+                chosen: ''
+            },
+            {
+                question:`In what galaxy is our solar system located?` ,
+                options:['Center','Milky Way','Satelite','Space'],
+                answers: 'Milky Way',
+                chosen: ''
+            },
+            {
+                question:`Which planet is known as the “Blue Planet”?`,
+                options:['Pluto','Jupitar','Saturn','Earth'],
+                answers: 'Earth',
+                chosen: ''
+            },
+            {
+                question: `Which geometric shape has four equal sides and four right angles?` ,
+                options:['Triangle','Circle','Square','Rectangle'],
+                answers: 'Square',
+                chosen: ''
+            },
+            {
+                question: `Before founding Facebook, Mark Zuckerberg created a website that allowed users to compare the attractiveness of two people side by side. What was the name of this website?` ,
+                options:['Facemash','Facemast','Facematch','Compare'],
+                answers: 'Facemash',
+                chosen: ''
+            },
+            {
+                question: `In mathematics, what is the name for a number that is not a prime number and has more than two factors?` ,
+                options:['Prime number',`Composite number`,'Odd numbers','Even numbers'],
+                answers: `Composite number`,
+                chosen: ''
+            },
+            {
+                question:`Who is the Greek god of war and son of Zeus and Hera?` ,
+                options:['Zues','Thor','Ares','Hercules'],
+                answers: 'Ares',
+                chosen: ''
+            },
+            {
+                question:`What animal is known to laugh and has been proven to have a sense of humor?` ,
+                options:['Goats','Horses','Rats','Donkeys'],
+                answers: 'Rats',
+                chosen: ''
+            },
+            {
+                question:'Who wrote “Pride and Prejudice”?' ,
+                options:['Chinua Achebe',`Jane Austen`,'Stephen King','Leo Tolstoy'],
+                answers: `Jane Austen`,
+                chosen: ''
+            },
+            {
+                question: `Who is known as the “Father of Modern Physics”?` ,
+                options:[`Albert Einstein`,'Isaac Newton','Ernest Rutherford','Michael Faraday'],
+                answers: `Albert Einstein`,
+                chosen: ''
+            },
+            {
+                question:`What is the highest common factor of the numbers 30 and 132?`,
+                options:[`7`,`9`,`6`,`32`],
+                answers:`6`,
+                chosen: ''
+            },
+            {
+                question:`Our measurement of time is based on which number system?`,
+                options:[`composite Number System`,`Numerical Number system`,`Natural Number System`,`The Sexagesimal Number System.`],
+                answers:`The Sexagesimal Number System.`,
+                chosen: ''
+            },
+            {
+                question:` If 1=3, 2=3, 3=5, 4=4, and 5=4, what is 6=? `,
+                options:[`2`,`4`,`3`,`1`],
+                answers:`3`,
+                chosen: ''
+            },
+            {
+                question:`Which number is the equivalent to 3^(4)/3^(2)? `,
+                options:[`8`,`3`,`6`,`9`],
+                answers:`9`,
+                chosen: ''
+            },
+            {
+                question:`256, 289, 324, 361 . . . ?`,
+                options:[`389`,`380`,`402`,`400`],
+                answers:`400`,
+                chosen: ''
+            },
+            {
+                question:`At a Christmas party, everyone shook hands with everyone else. There were a total of 66 handshakes that happened during the party. How many people were present? `,
+                options:[`12`,`66`,`33`,`13`],
+                answers:`12`,
+                chosen: ''
+            },
+            {
+                question:`Adding the numbers between 1 to 100 consecutively (1+2+3+4+…) gives you what final answer? `,
+                options:[`8`,`6`,`2020`,`5050`],
+                answers:`5050`,
+                chosen: ''
+            },
+            {
+                question:`You are given a 3-digit number. The second digit of this number is four times bigger than the third digit. The first digit of the number is 3 less than the second digit. What is the number? `,
+                options:[`175`,`252`,`373`,`141`],
+                answers:`141`,
+                chosen: ''
+            },
+            {
+                question:` Find the Missing Term in Multiples of 6 : 6, 12, 18, 24, _, 36, 42, _ 54, 60.`,
+                options:[`32, 45`,`30,48`,`24, 40`,`25, 49`],
+                answers:`30,48`,
+                chosen: ''
+            },
+            {
+                question:`What is the Next Prime Number after 7 ?`,
+                options:[`13`,`12`,`14`,`11`],
+                answers:`11`,
+                chosen: ''
+            },
+            {
+                question:`How Many Months Have 120 Days?`,
+                options:[`2 months`,`4 months`,`11 months`,`12 months`],
+                answers:`4 months`,
+                chosen: ''
+            },
+            {
+                question:`How Many Sides are there in a Decagon?`,
+                options:[`7`,`8`,`9`,`10`],
+                answers:`10`,
+                chosen: ''
+            },
+            {
+                question:`What Number Comes Before 9019?`,
+                options:[`9099`,`9091`,`9109`,`None of these`],
+                answers:`None of these`,
+                chosen: ''
+            },
+            {
+                question:`What is the product of 121 x 0 x 20 x 2.5 - `,
+                options:[`6050`,`0`,`2,420`,`None of this`],
+                answers:`0`,
+                chosen: ''
+            },
+            {
+                question:`27 is a perfect cube. If true then what is the perfect cube of 27? `,
+                options:[`9`,`6`,`3`,`27 is not a perfect cube`],
+                answers:`3`,
+                chosen: ''  
+            }
+    ]
+        console.log(questions);
+        let index = 0
+
+        function display() {
+           let screens = document.getElementById('screens')
+           screens.innerHTML = ''
+            let question = questions[index];
+           screens.innerHTML +=`<h4>${index+1}. ${question.question}</h4>`
+            // console.log(questions.question);
+
+            question.options.forEach((el, i) =>{
+                screens.innerHTML +=`<p><input onclick="check(${i})" ${el == question.chosen? 'checked':''} type="radio" name= 'ans'> ${el}</p>`
+            })
+        }
+        display()
+        function mysubmit() {
+
+            let nameInput = document.getElementById('name').value
+
+            let disPlay = document.getElementById('Submitdisplay')
+            
+            let score = questions.filter(el =>el.chosen == el.answers)
+            // console.log(el.chosen);
+            disPlay.innerHTML = `<h3>Dear ${nameInput}, Your score is ${score.length}/${questions.length}</h3>`;
+
+            document.getElementById('screen').style.display = 'none'
+
+            document.getElementById('Submitdisplay').style.display = 'block'
+
+            document.getElementById('final').style.display = 'block'
+
+            mysubmit()
+        }
+
+
+        function check(i) {
+            questions[index].chosen = questions[index].options[i]
+            console.log(questions[index]);
+            let arrChosen =`<tr style = "color:red;"> <th>${index+1}</th> <td>${questions[index].question}</td> <td>${questions[index].chosen}</td> <td style = "color:green">${questions[index].answers}</td> </tr>`
+            // let arrAnswer = `<p style = "color:green">ANSWER: ${questions[index].answers}</p>`
+            document.getElementById('final').innerHTML += arrChosen
+            document.getElementById('final').innerHTML += arrAnswer
+        }
+
+        
+        // document.querySelectorAll('.controls').forEach((el)=>{
+        //     el.addEventListener('click',function(event){
+        //         if (event.target.innerHTML =='Previous') {
+        //             questions[index-1] != undefined ?index--: ''
+        //         } else {
+        //             questions[index+1] != undefined ?index++: ''
+        //             // setTimeout(el,1000)
+        //         }
+
+        //     //     let datetime = new Date()
+
+        //     //     let seconds = datetime.getSeconds()
+        //     //     console.log(seconds);
+                
+        //     //    setTimeout(display(),2000)
+        //     })
+        // })
+        // display()
+
+        const forward = () =>{
+            if (questions[index+1] != undefined ) {
+                index++
+                
+            }
+            display()
+        }
+
+        setTimeout(mysubmit, 300000)
+
+
+        const back = () =>{
+            if(questions[index-1] != undefined){
+                index--
+            }
+            display()
+        }
+     
+
+       
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</html>
